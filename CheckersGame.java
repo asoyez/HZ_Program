@@ -1,3 +1,4 @@
+// CheckersGame.java
 import java.util.Scanner;
 
 public class CheckersGame {
@@ -13,8 +14,13 @@ public class CheckersGame {
             System.out.print("Enter move (e.g., 'a2 b3'): ");
             String moveInput = scanner.nextLine();
 
-            // Make the move
-            if (!board.makeMove(moveInput)) {
+            // Parse move and create command
+            MoveCommand moveCommand = parseMove(moveInput, board);
+
+            // Execute the move command
+            if (moveCommand != null) {
+                moveCommand.execute();
+            } else {
                 System.out.println("Invalid move. Try again.");
             }
         }
@@ -22,5 +28,19 @@ public class CheckersGame {
         // Game over, print result
         System.out.println("Game over! Winner: " + board.getWinner());
         scanner.close();
+    }
+
+    private static MoveCommand parseMove(String move, CheckersBoard board) {
+        if (!board.isValidMove(move)) {
+            return null;
+        }
+
+        // Convert positions to array indices
+        int fromRow = Integer.parseInt(move.substring(1, 2)) - 1;
+        int fromCol = move.charAt(0) - 'a';
+        int toRow = Integer.parseInt(move.substring(4, 5)) - 1;
+        int toCol = move.charAt(3) - 'a';
+
+        return new SimpleMoveCommand(board, fromRow, fromCol, toRow, toCol);
     }
 }
