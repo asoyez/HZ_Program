@@ -1,5 +1,6 @@
+// CheckersBoard.java
 public class CheckersBoard {
-    private char[][] board;
+    private CheckersSquare[][] board;
     private String currentPlayer;
 
     public CheckersBoard() {
@@ -8,18 +9,31 @@ public class CheckersBoard {
     }
 
     private void initializeBoard() {
-        // Initialize the board with pieces in the starting positions
-        // P represents Player1's pieces, K represents Player1's king, O represents Player2's pieces, Q represents Player2's king
-        board = new char[][] {
-                {'_', 'P', '_', 'P', '_', 'P', '_', 'P'},
-                {'P', '_', 'P', '_', 'P', '_', 'P', '_'},
-                {'_', 'P', '_', 'P', '_', 'P', '_', 'P'},
-                {'_', '_', '_', '_', '_', '_', '_', '_'},
-                {'_', '_', '_', '_', '_', '_', '_', '_'},
-                {'O', '_', 'O', '_', 'O', '_', 'O', '_'},
-                {'_', 'O', '_', 'O', '_', 'O', '_', 'O'},
-                {'O', '_', 'O', '_', 'O', '_', 'O', '_'}
-        };
+        // Initialize the board with squares
+        board = new CheckersSquare[8][8];
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                board[row][col] = new CheckersSquare();
+            }
+        }
+
+        // Set up Player1's pieces
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 8; col++) {
+                if ((row + col) % 2 != 0) {
+                    board[row][col].addPiece(CheckersPieceFactory.createPiece('P'));
+                }
+            }
+        }
+
+        // Set up Player2's pieces
+        for (int row = 5; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if ((row + col) % 2 != 0) {
+                    board[row][col].addPiece(CheckersPieceFactory.createPiece('O'));
+                }
+            }
+        }
     }
 
     public void printBoard() {
@@ -28,7 +42,8 @@ public class CheckersBoard {
         for (int i = 0; i < 8; i++) {
             System.out.print((i + 1) + " ");
             for (int j = 0; j < 8; j++) {
-                System.out.print(board[i][j] + " ");
+                char symbol = (board[i][j].isEmpty()) ? '_' : board[i][j].getPieces().get(0).getSymbol();
+                System.out.print(symbol + " ");
             }
             System.out.println();
         }
@@ -80,19 +95,18 @@ public class CheckersBoard {
         int toCol = toPosition.charAt(0) - 'a';
 
         // Check if there is a piece at the fromPosition
-        if (board[fromRow][fromCol] == '_') {
+        if (board[fromRow][fromCol].isEmpty()) {
             return false;
         }
 
         // Check if the piece belongs to the current player
         char currentPlayerPiece = (currentPlayer.equals("Player1")) ? 'P' : 'O';
-        if (board[fromRow][fromCol] != currentPlayerPiece) {
+        if (board[fromRow][fromCol].getPieces().get(0).getSymbol() != currentPlayerPiece) {
             return false;
         }
 
         // Implement actual move logic here
-        board[toRow][toCol] = board[fromRow][fromCol];
-        board[fromRow][fromCol] = '_';
+        board[toRow][toCol].addPiece(board[fromRow][fromCol].getPieces().remove(0));
 
         // Update the player turn
         currentPlayer = (currentPlayer.equals("Player1")) ? "Player2" : "Player1";
@@ -115,5 +129,10 @@ public class CheckersBoard {
         // Implement code to determine the winner
         // For now, always return "No winner" (game never ends)
         return "No winner";
+    }
+
+    // Add new getter for board
+    public CheckersSquare[][] getBoard() {
+        return board;
     }
 }
