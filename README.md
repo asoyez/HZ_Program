@@ -55,20 +55,7 @@ We wilden zeker weten dat we allebei evenveel bijdroegen. Dus, we wisselden rege
 
 ### Design Patterns
 
-We hebben ook slimme trucjes gebruikt, 'design patterns' genaamd, om onze code georganiseerd te houden. We kozen de patronen die het beste pasten bij ons project, zodat het makkelijk uit te breiden is.
 
-
-### Slim Beginnen met Spelstukken
-
-Voor het maken van damstenen gebruiken we het **Factory Method-patroon**. Dat is als een sjabloon om snel nieuwe stukken te maken. Zo kunnen we makkelijk nieuwe soorten stukken toevoegen. Check de README voor meer info hierover.
-
-### Altijd Maar Één Spelbord
-
-We zorgen ervoor dat er maar **één spelbord** is door het **Singleton-patroon** te gebruiken. Dit voorkomt dat er per ongeluk meerdere borden worden gemaakt. Als je nieuwsgierig bent, staat er meer over in de README.
-
-### Slimme Zetten Bedenken
-
-Voor het checken van zetten gebruiken we het **Strategy-patroon**. We hebben een slimme manier bedacht om zetten goed te keuren. Met dit trucje kunnen we later makkelijk nieuwe soorten zetten toevoegen. Lees de README voor meer details.
 
 ## Tot Slot
 
