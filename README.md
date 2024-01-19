@@ -15,18 +15,21 @@ Bij het maken van de CheckersGame hebben mijn teamgenoot Arne en ik verschillend
 ### Factory Method-pattern:
 
 Waarom: Het Factory Method-patroon wordt gebruikt om de creatie van spelstukken (damstenen) te beheren.
+
 Wat doet het: In dit damspel is er een CheckersPieceFactory class die de logica bevat om damstenen te maken. Het zorgt voor een gestructureerde manier om nieuwe stuktypen toe te voegen zonder het hoofdprogramma aan te passen. Dit patroon maakt het gemakkelijk om in de toekomst nieuwe damstukken toe te voegen.
 
 
 ### Singleton-pattern:
 
 Waarom: Het Singleton-patroon zorgt ervoor dat er slechts één instantie van het spelbord (CheckersBoard) is.
+
 Wat doet het: In het damspel wil je niet dat er meerdere borden tegelijkertijd zijn. Het Singleton-patroon garandeert dat er maar één bord is, waardoor verwarring en fouten worden voorkomen. Dit patroon zorgt voor een unieke instantie van het bord die overal toegankelijk is.
 
 
 ### Strategy-patroon:
 
 Waarom: Het Strategy-patroon wordt gebruikt voor de validatielogica van zetten in het spel.
+
 Wat doet het: In het damspel moeten zetten gevalideerd worden, en het Strategy-patroon biedt een manier om verschillende strategieën voor validatie te definiëren. We hebben een interface genaamd MoveValidator gedefinieerd en concrete implementaties voor gewone zetten en sla-zetten. Hierdoor kunnen we in het spel makkelijk schakelen tussen verschillende manieren om zetten te checken. Het biedt flexibiliteit voor toekomstige uitbreidingen, zoals het toevoegen van nieuwe soorten zetten. 
 
 
