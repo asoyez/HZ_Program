@@ -13,7 +13,7 @@ public class SimpleMoveCommand implements MoveCommand {
 
     @Override
     public void execute() {
-        // Implement actual move logic here
+
         board.getBoard()[toRow][toCol].addPiece(board.getBoard()[fromRow][fromCol].getPieces().remove(0));
     }
 }

@@ -6,7 +6,11 @@ public class CheckersSquare {
     private List<CheckersPiece> pieces;
 
     public CheckersSquare() {
-        this.pieces = new ArrayList<>();
+        pieces = new ArrayList<>();
+    }
+
+    public List<CheckersPiece> getPieces() {
+        return pieces;
     }
 
     public void addPiece(CheckersPiece piece) {
@@ -17,11 +21,9 @@ public class CheckersSquare {
         pieces.remove(piece);
     }
 
-    public List<CheckersPiece> getPieces() {
-        return pieces;
-    }
-
     public boolean isEmpty() {
         return pieces.isEmpty();
     }
 }
+
+

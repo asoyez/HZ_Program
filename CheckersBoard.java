@@ -57,23 +57,14 @@ public class CheckersBoard {
 
         // Split the move into fromPosition and toPosition
         String[] positions = move.split(" ");
-        String fromPosition = positions[0];
-        String toPosition = positions[1];
-
-        // Convert positions to array indices
-        int fromRow = Integer.parseInt(fromPosition.substring(1)) - 1;
-        int fromCol = fromPosition.charAt(0) - 'a';
-        int toRow = Integer.parseInt(toPosition.substring(1)) - 1;
-        int toCol = toPosition.charAt(0) - 'a';
+        int[] fromIndices = convertPositionToIndices(positions[0]);
+        int[] toIndices = convertPositionToIndices(positions[1]);
 
         // Check if the move is within the bounds of the board
-        if (fromRow < 0 || fromRow >= 8 || fromCol < 0 || fromCol >= 8 ||
-                toRow < 0 || toRow >= 8 || toCol < 0 || toCol >= 8) {
+        if (!isValidBoardPosition(fromIndices) || !isValidBoardPosition(toIndices)) {
             return false;
         }
 
-        // Implement more detailed move validation logic here
-        // For simplicity, we assume all moves are valid in this example
         return true;
     }
 
@@ -85,33 +76,31 @@ public class CheckersBoard {
 
         // Split the move into fromPosition and toPosition
         String[] positions = move.split(" ");
-        String fromPosition = positions[0];
-        String toPosition = positions[1];
-
-        // Convert positions to array indices
-        int fromRow = Integer.parseInt(fromPosition.substring(1)) - 1;
-        int fromCol = fromPosition.charAt(0) - 'a';
-        int toRow = Integer.parseInt(toPosition.substring(1)) - 1;
-        int toCol = toPosition.charAt(0) - 'a';
+        int[] fromIndices = convertPositionToIndices(positions[0]);
+        int[] toIndices = convertPositionToIndices(positions[1]);
 
         // Check if there is a piece at the fromPosition
-        if (board[fromRow][fromCol].isEmpty()) {
+        if (board[fromIndices[0]][fromIndices[1]].isEmpty()) {
             return false;
         }
 
         // Check if the piece belongs to the current player
         char currentPlayerPiece = (currentPlayer.equals("Player1")) ? 'P' : 'O';
-        if (board[fromRow][fromCol].getPieces().get(0).getSymbol() != currentPlayerPiece) {
+        if (board[fromIndices[0]][fromIndices[1]].getPieces().get(0).getSymbol() != currentPlayerPiece) {
             return false;
         }
 
         // Implement actual move logic here
-        board[toRow][toCol].addPiece(board[fromRow][fromCol].getPieces().remove(0));
+        board[toIndices[0]][toIndices[1]].addPiece(board[fromIndices[0]][fromIndices[1]].getPieces().remove(0));
 
         // Update the player turn
-        currentPlayer = (currentPlayer.equals("Player1")) ? "Player2" : "Player1";
+        switchPlayer();
 
         return true;
+    }
+
+    private void switchPlayer() {
+        currentPlayer = (currentPlayer.equals("Player1")) ? "Player2" : "Player1";
     }
 
     public boolean isGameOver() {
@@ -126,7 +115,6 @@ public class CheckersBoard {
     }
 
     public String getWinner() {
-        // Implement code to determine the winner
         // For now, always return "No winner" (game never ends)
         return "No winner";
     }
@@ -134,5 +122,19 @@ public class CheckersBoard {
     // Add new getter for board
     public CheckersSquare[][] getBoard() {
         return board;
+    }
+
+    // New method to convert position string to array indices
+    private int[] convertPositionToIndices(String position) {
+        int row = Integer.parseInt(position.substring(1)) - 1;
+        int col = position.charAt(0) - 'a';
+        return new int[]{row, col};
+    }
+
+    // New method to check if a position is within the bounds of the board
+    private boolean isValidBoardPosition(int[] indices) {
+        int row = indices[0];
+        int col = indices[1];
+        return row >= 0 && row < 8 && col >= 0 && col < 8;
     }
 }
