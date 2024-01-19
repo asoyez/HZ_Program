@@ -1,5 +1,6 @@
 # HZ_Program
 CheckersGame door Alwyn Voorhoeve en Arne Soyez
+
 Repository: https://github.com/asoyez/HZ_Program
 
 ### Gebruikte Design patterns: 
