@@ -2,7 +2,7 @@
 CheckersGame door Alwyn Voorhoeve en Arne Soyez
 Repository: https://github.com/asoyez/HZ_Program
 
-Gebruikte Design patterns: 
+### Gebruikte Design patterns: 
 - Factory pattern
 - Composite pattern
 - Command pattern
